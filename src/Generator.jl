@@ -67,7 +67,7 @@ function GenBelief(
     if !all(iszero, bp_weights)
         normalize!(bp_weights, 1)
     else
-        fill!(bp_weights, inv(N))
+        fill!(bp_weights, inv(N)) #Reweighting all the particles to have the same weight
     end
 
     bp = PFTBelief(bp_particles, bp_weights, pomdp)

@@ -1,0 +1,12 @@
+1) It all starts with main.jl
+      That is where the action_info function is defined.
+      The action_info function calls the _search function to build the tree iteratively.
+
+2) The _search function essentially uses one of the two functions in search.jl (depending on the solver parameter) to build the tree.
+      Either obs_check_search or no_obs_check_search
+
+3) Now, both obs_check_search and no_obs_check_search internally call the GenBelief function.
+      This function is where bp, o and r are generated and returned.
+
+4) This GenBelief function is what needs to be modified to solve a rho-POMDP.
+            The for loop from line 45 to 65 needs to be such that it is belief dependent and not reward dependent.

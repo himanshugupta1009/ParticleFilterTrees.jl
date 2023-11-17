@@ -58,6 +58,8 @@ function POMDPTools.action_info(planner::PFTDPWPlanner, b)
     free!(planner.cache)
     insert_root!(planner, b)
 
+    #the function search_method chooses which function f to use to build the tree
+    #the function _search calls this function f again and again to build the tree
     iter = _search(search_method(sol), planner, t0)
 
     a = if isempty(first(planner.tree.b_children))

@@ -2,6 +2,10 @@ function no_obs_check_search(planner::PFTDPWPlanner, b_idx::Int, d::Int)
     (;tree, pomdp, sol) = planner
     γ = discount(pomdp)
 
+    #=
+    @inbounds just ignores the julia internal lookup to ensure that the array index is not out of range
+    It assumes that the user will take care of it and pass in a legal index while writing the code
+    =#
     @inbounds if iszero(d) || tree.b[b_idx].non_terminal_ws < eps()
         return 0.0
     end

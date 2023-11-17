@@ -14,12 +14,18 @@ function progressive_widen(planner::PFTDPWPlanner, b_idx::Int)
     (;tree, sol) = planner
     (;k_a, alpha_a) = sol
 
+    #=
+    If number of children of b node, that means if the number of actions that have been taken
+    so far at node b are less than a certain threshold, then sample another action!
+    =#
     if length(tree.b_children[b_idx]) ≤ k_a*tree.Nh[b_idx]^alpha_a
         a = next_action(sol.rng, planner.pomdp)
         if !any(x[1] == a for x in tree.b_children[b_idx])
             insert_action!(planner, tree, b_idx, a)
         end
     end
+
+    #=ERROR HERE in sampling an action=#
 
     return select_best(sol.criterion, tree, b_idx)
 end
